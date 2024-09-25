@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist Au]</title>
+    <link rel="stylesheet" href="principal/estilos.css">
+</head>
+<body>
+
+<div class="fundo_music">
+
+    <img src="image/fire_force.jpeg" alt="fire_force" id="fire_force">
+    <h2 id="text_inf">INFERNO - By: Mrs GREEN APPLE</h2>
+
+    <audio id="myMusic" src="audio/inferno.mp3"></audio>
+    <button id="iniciar">Play</button>
+
+    <div id="music_status">
+        <button id="antes"> ⬅ 10s </button>
+            <input type="range" id="barra_progresso" value="0" max="100" style="width: 300px;">
+        <button id="depois"> 10s ➡ </button>
+    
+        <div id="duracao_tempo">
+            <span id="tempo_corrente">0:00</span> / <span id="duracao">0:00</span>
+        </div>
+    </div>
+
+    <br>
+
+    <img src="image/ao_no_sumika.png" alt="jujutsu" id="jujutsu">
+    <h2 id="text_inf">Ao No Sumiko - By: Tatsuya Kitani</h2>
+
+    <audio id="myMusic2" src="audio/jujutsu.mp3"></audio>
+    <button id="comecar">Play</button>
+
+    <div id="music_status">
+        <button id="voltar_antes"> ⬅ 10s </button>
+            <input type="range" id="progress_bar" value="0" max="100" style="width: 300px;">
+        <button id="pular_depois"> 10s ➡ </button>
+    </div>
+
+    <div id="duracao_tempo">
+        <span id="tempo_corrido2">0:00</span> / <span id="tempo_durado">0:00</span>
+    </div>
+
+</div>
+
+<script>
+
+    // Primeira música
+    var music = document.getElementById("myMusic");
+    var botao = document.getElementById("iniciar");
+    var barra_progre = document.getElementById("barra_progresso");
+    var corrente = document.getElementById("tempo_corrente");
+    var duration = document.getElementById("duracao");
+    var retroce = document.getElementById("antes");
+    var avancar = document.getElementById("depois");
+
+    botao.addEventListener("click", function() {
+        if (music.paused) {
+            music.play();
+            botao.innerHTML = "Pause";
+
+            if (!music2.paused) {
+                music2.pause();
+                botao2.innerHTML = "Play";
+            }
+        } else {
+            music.pause();
+            botao.innerHTML = "Play";
+        }
+    });
+
+    //Quando a segunda musica
+    music.addEventListener("ended", function() {
+        music2.play();
+        botao.innerHTML = "Play";
+    })
+
+    music.addEventListener("timeupdate", function() {
+        var progress = (music.currentTime / music.duration) * 100;
+        barra_progre.value = progress;
+        corrente.innerHTML = formatTime(music.currentTime);
+    });
+
+    music.addEventListener("loadedmetadata", function() {
+        duration.innerHTML = formatTime(music.duration);
+    });
+
+    barra_progre.addEventListener("input", function() {
+        var tempo_music = (barra_progre.value / 100) * music.duration;
+        music.currentTime = tempo_music;
+    });
+
+    retroce.addEventListener("click", function() {
+        music.currentTime = Math.max(0, music.currentTime - 10);
+    });
+
+    avancar.addEventListener("click", function() {
+        music.currentTime = Math.min(music.duration, music.currentTime + 10);
+    });
+
+    function formatTime(totalSeconds) {
+        var minutes = Math.floor(totalSeconds / 60);
+        var seconds = Math.floor(totalSeconds % 60);
+        return minutes + ':' + (seconds < 10 ? '0' + seconds : seconds);
+    }
+
+    /* SEGUNDA MÚSICA */
+    var music2 = document.getElementById("myMusic2");
+    var botao2 = document.getElementById("comecar");
+    var progress_bar = document.getElementById("progress_bar");
+    var tp_corrido2 = document.getElementById("tempo_corrido2");
+    var tp_durado2 = document.getElementById("tempo_durado");
+    var avcar_frente = document.getElementById("pular_depois");
+    var rtcder_atras = document.getElementById("voltar_antes");
+
+    botao2.addEventListener("click", function() {
+        if (music2.paused) {
+            music2.play();
+            botao2.innerHTML = "Pause";
+
+            if (!music.paused) {
+                music.pause();
+                botao.innerHTML = "Play";
+            }
+        } else {
+            music2.pause();
+            botao2.innerHTML = "Play";
+        }
+    });
+
+    //Quando a segunda musica acaba, a primeira muscia começa a tocar
+    music2.addEventListener("ended", function() {
+        music.play();
+        botao2.innerHTML = "Play";
+    })
+
+    // Atualiza a barra de progresso e o tempo atual enquanto a segunda música toca
+    music2.addEventListener("timeupdate", function() {
+        var progress_barra = (music2.currentTime / music2.duration) * 100;
+        progress_bar.value = progress_barra;
+        tp_corrido2.innerHTML = tempoFormado(music2.currentTime);
+    });
+
+    // Atualiza a duração total da segunda música quando os metadados são carregados
+    music2.addEventListener("loadedmetadata", function() {
+        tp_durado2.innerHTML = tempoFormado(music2.duration);
+    });
+
+    // Permite ao usuário arrastar a barra de progresso para mudar o tempo da música
+    progress_bar.addEventListener("input", function() {
+        var music_time = (progress_bar.value / 100) * music2.duration;
+        music2.currentTime = music_time;
+    });
+
+    rtcder_atras.addEventListener("click", function() {
+        music2.currentTime = Math.max(0, music2.currentTime - 10);
+    });
+
+    avcar_frente.addEventListener("click", function() {
+        music2.currentTime = Math.min(music2.duration, music2.currentTime + 10);
+    });
+
+    function tempoFormado(secundos_total) {
+        var minutos = Math.floor(secundos_total / 60);
+        var segundos = Math.floor(secundos_total % 60);
+        return minutos + ':' + (segundos < 10 ? '0' + segundos : segundos);
+    }
+
+</script>
+    
+</body>
+</html>
