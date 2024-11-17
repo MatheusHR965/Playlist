@@ -14,7 +14,7 @@
     <h2 id="text_inf">INFERNO - By: Mrs GREEN APPLE</h2>
 
     <audio id="myMusic" src="audio/inferno.mp3"></audio>
-    <button id="iniciar">Play</button>
+    <button id="iniciar" class="botao_play"> <img src="image/play.png"> </button>
 
     <div id="music_status">
         <button id="antes"> ⬅ 10s </button>
@@ -32,7 +32,7 @@
     <h2 id="text_inf">Ao No Sumiko - By: Tatsuya Kitani</h2>
 
     <audio id="myMusic2" src="audio/jujutsu.mp3"></audio>
-    <button id="comecar">Play</button>
+    <button id="comecar" class="botao_play"><img src="image/play.png"></button>
 
     <div id="music_status">
         <button id="voltar_antes"> ⬅ 10s </button>
@@ -43,6 +43,8 @@
     <div id="duracao_tempo">
         <span id="tempo_corrido2">0:00</span> / <span id="tempo_durado">0:00</span>
     </div>
+
+    <br>
 
 </div>
 
@@ -57,20 +59,23 @@
     var retroce = document.getElementById("antes");
     var avancar = document.getElementById("depois");
 
-    botao.addEventListener("click", function() {
-        if (music.paused) {
-            music.play();
-            botao.innerHTML = "Pause";
+    botao.addEventListener("click", function () {
+    var img = botao.querySelector("img");
+    if (music.paused) {
+        music.play();
+        img.src = "image/pausa.png";
 
-            if (!music2.paused) {
-                music2.pause();
-                botao2.innerHTML = "Play";
-            }
-        } else {
-            music.pause();
-            botao.innerHTML = "Play";
+        // Pausa a segunda música
+        if (!music2.paused) {
+            music2.pause();
+            var img2 = botao2.querySelector("img");
+            img2.src = "image/play.png";
         }
-    });
+    } else {
+        music.pause();
+        img.src = "image/play.png";
+    }
+});
 
     //Quando a segunda musica
     music.addEventListener("ended", function() {
@@ -116,20 +121,23 @@
     var avcar_frente = document.getElementById("pular_depois");
     var rtcder_atras = document.getElementById("voltar_antes");
 
-    botao2.addEventListener("click", function() {
-        if (music2.paused) {
-            music2.play();
-            botao2.innerHTML = "Pause";
+    botao2.addEventListener("click", function () {
+    var img2 = botao2.querySelector("img");
+    if (music2.paused) {
+        music2.play();
+        img2.src = "image/pausa.png";
 
-            if (!music.paused) {
-                music.pause();
-                botao.innerHTML = "Play";
-            }
-        } else {
-            music2.pause();
-            botao2.innerHTML = "Play";
+        // Pausa a primeira música
+        if (!music.paused) {
+            music.pause();
+            var img = botao.querySelector("img");
+            img.src = "image/play.png";
         }
-    });
+    } else {
+        music2.pause();
+        img2.src = "image/play.png";
+    }
+});
 
     //Quando a segunda musica acaba, a primeira muscia começa a tocar
     music2.addEventListener("ended", function() {

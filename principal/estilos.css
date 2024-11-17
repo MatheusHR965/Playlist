@@ -1,6 +1,8 @@
 body {
-    background-image: url(../image/fundo_site.jpeg);
-    background-size: cover;
+    background-image: url(../image/fundo_site.jpg);
+    background-size: cover; /* Faz a imagem preencher toda a tela */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita repetição */
     margin: 0;
 }
 
@@ -22,18 +24,34 @@ body {
 #fire_force {
     border: solid 4px red;
     border-radius: 40px;
+    box-shadow: 8px 8px 20px white;
 }
 
-#iniciar {
-    padding: 1%;
-    border-radius: 35%;
-    border: solid 2px black;
-    color: white;
-    font-family: sans-serif;
-    font-style: italic;
-    background-color: rgb(129, 3, 3);
-    box-shadow: 5px black;
-    
+.botao_play {
+    background: transparent; /* Garante que o fundo do botão seja transparente */
+    border: none;  /* Remove qualquer borda */
+    padding: 0;  /* Remove qualquer espaçamento extra */
+    cursor: pointer;  /* Mantém o cursor como pointer */
+    outline: none;  /* Remove qualquer contorno ao clicar */
+}
+
+.botao_play img {
+    width: 40px;  /* Tamanho do ícone de play */
+    height: 40px; /* Tamanho do ícone de play */
+    border-radius: 50%;  /* Torna o botão circular */
+    background-color: transparent;  /* Fundo transparente */
+    box-shadow: none;  /* Remove qualquer sombra */
+    transition: transform 0.3s ease, background-color 0.3s ease;  /* Transição suave */
+    border: none;  /* Remove bordas */
+}
+
+.botao_play img:hover {
+    transform: scale(1.1);  /* Aumenta o botão levemente ao passar o mouse */
+    background-color: rgba(255, 255, 255, 0.3);  /* Muda a cor de fundo ao passar o mouse */
+}
+
+.botao_play img:active {
+    transform: scale(0.95);  /* Efeito de "pressionamento" no clique */
 }
 
 #duracao_tempo {
@@ -58,17 +76,7 @@ body {
 #jujutsu {
     border: solid 4px red;
     border-radius: 40px;
-}
-
-#comecar {
-    padding: 1%;
-    border-radius: 35%;
-    border: solid 2px black;
-    color: white;
-    font-family: sans-serif;
-    font-style: italic;
-    background-color: rgb(129, 3, 3);
-    box-shadow: 5px black;
+    box-shadow: 8px 8px 20px white;
 }
 
 #antes {
